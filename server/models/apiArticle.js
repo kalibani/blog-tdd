@@ -10,7 +10,8 @@ let articleSchema = new Schema({
   },
   author:{
     type: String
-  }
+  },
+  image: String
 })
 
 module.exports = mongoose.model('Article', articleSchema);

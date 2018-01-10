@@ -12,8 +12,8 @@ var apiArticle = require('./routes/apiArticle')
 
 var cors = require('cors');
 app.use(cors());
-mongoose.connection.openUri('mongodb://localhost/blog_tdd'+process.env.NODE_ENV, (err) => {
- err ? console.log(err) : console.log('Database Connected to blog_tdd'+process.env.NODE_ENV);
+mongoose.connection.openUri('mongodb://localhost/blog_tdd', (err) => {
+ err ? console.log(err) : console.log('Database Connected to blog_tdd');
 })
 mongoose.Promise = global.Promise;
 // view engine setup
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/api/users', users);
 app.use('/api', apiArticle)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
