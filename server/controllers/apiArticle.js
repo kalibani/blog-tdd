@@ -8,6 +8,7 @@ class ArticleAPI {
 
   static create(req, res){
     req.body.image = req.file.cloudStoragePublicUrl
+    console.log('req.body.image');
     var newArticle = new Article(req.body)
     newArticle.save()
     .then((dataArticle) => {
@@ -26,16 +27,33 @@ class ArticleAPI {
   static update(req, res) {
     if(req.file){
       req.body.image = req.file.cloudStoragePublicUrl
+      Article.findById(req.params.id).then((data) => {
+        return Object.assign(data, req.body)
+      }).then((data) => {
+        return data.save()
+      }).then((updatedArticle) => {
+        res.json({message: 'Succesfully Updated Article', updatedArticle})
+      }).catch((err) => {
+        res.send(err);
+      })
+    } else {
+      let id = {_id : req.params.id}
+      let update = {
+        title: req.body.title,
+        author: req.body.author,
+        content: req.body.content
+      }
+      Article.findByIdAndUpdate(id, update,{
+        new: true, // return new updated document
+      })
+      .then(updatedArticle => {
+        res.status(200).json({
+          message: 'Update Succes!',
+          updatedArticle: updatedArticle
+        })
+      })
+      .catch(err => res.send(err))
     }
-    Article.findById(req.params.id).then((data) => {
-      return Object.assign(data, req.body)
-    }).then((data) => {
-      return data.save()
-    }).then((updatedArticle) => {
-      res.json({message: 'Succesfully Updated Article', updatedArticle})
-    }).catch((err) => {
-      res.send(err);
-    })
   }
 
   static deleteArticle(req, res){
