@@ -12,8 +12,8 @@ var apiArticle = require('./routes/apiArticle')
 
 var cors = require('cors');
 app.use(cors());
-mongoose.connection.openUri('mongodb://localhost/blog_tdd', (err) => {
- err ? console.log(err) : console.log('Database Connected to blog_tdd');
+mongoose.connection.openUri(`mongodb://${process.env.USERNAMEDB}:${process.env.PASSWORDDB}@cluster0-shard-00-00-xrrgq.mongodb.net:27017,cluster0-shard-00-01-xrrgq.mongodb.net:27017,cluster0-shard-00-02-xrrgq.mongodb.net:27017/Good-Reads?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin`, (err) => {
+ err ? console.log(err) : console.log('Database Connected to good-reads');
 })
 mongoose.Promise = global.Promise;
 // view engine setup
