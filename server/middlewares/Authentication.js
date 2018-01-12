@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 class Authentication {
   static authentication(req, res, next){
+    console.log(req.headers);
     const token = req.headers['authorization'];
     if (!token) {
       return res.json({success: false, message: 'Token required'})

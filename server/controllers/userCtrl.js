@@ -25,6 +25,7 @@ class UserCtrl {
       }else {
         dataUser.comparePassword(req.body.password, (err, success) => {
           if (err || !success) {
+            console.log(err)
             return res.status(200).json({
               message: 'Authentication failed, Email/Username or password did not match'
             })
