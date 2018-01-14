@@ -19,9 +19,9 @@ describe('Articles', () => {
       chai.request(app)
       .post('/api/articles')
       .send({
-        title: 'Jaenal Jadi Makin Tamvan',
-        content: 'INI HOAX',
-        author: 'Redha Pake H'
+        title: 'Northern fox',
+        content: 'Booms!',
+        author: 'Kautzar'
       })
       .end((err, response) => {
         response.status.should.eql(200)
@@ -30,9 +30,9 @@ describe('Articles', () => {
         response.body.should.have.property('message').eql('Article Succesfully Added!')
         response.body.should.have.property('dataArticle')
         response.body.dataArticle.should.have.property('_id')
-        response.body.dataArticle.should.have.property('title').eql('Jaenal Jadi Makin Tamvan')
-        response.body.dataArticle.should.have.property('content').eql('INI HOAX')
-        response.body.dataArticle.should.have.property('author').eql('Redha Pake H')
+        response.body.dataArticle.should.have.property('title').eql('Northern fox')
+        response.body.dataArticle.should.have.property('content').eql('Booms!')
+        response.body.dataArticle.should.have.property('author').eql('Kautzar')
         done()
       })
     })
@@ -53,7 +53,7 @@ describe('Articles', () => {
 
   describe('/GET article route', () => {
     it('it should GET a single article ', (done) => {
-      let article = new Article({ title: "Mas Jainal Paling Tamvan se-Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
+      let article = new Article({ title: "Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
       article.save((err, article) => {
         chai.request(app)
         .get('/api/articles/' + article.id)
@@ -73,18 +73,18 @@ describe('Articles', () => {
 
   describe('/PUT article route', () => {
     it('it should UPDATE an article given the id', (done) => {
-      let article = new Article({ title: "Mas Jainal Paling Tamvan se-Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
+      let article = new Article({ title: "Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
       article.save((err, article) => {
         chai.request(app)
         .put('/api/articles/' + article.id)
-        .send({ title: "Mas Jainal Paling Tamvan se-Hackticv Raya", content: "Saracen Hoax", author: 'Hary NP'})
+        .send({ title: "Hackticv Raya", content: "Saracen Hoax", author: 'Hary NP'})
         .end((err, response) => {
           // console.log(response);
           response.status.should.eql(200);
           response.body.should.be.an('object');
           response.body.should.have.property('message').eql('Succesfully Updated Article');
           response.body.should.have.property('updatedArticle')
-          response.body.updatedArticle.should.have.property('title').eql('Mas Jainal Paling Tamvan se-Hackticv Raya');
+          response.body.updatedArticle.should.have.property('title').eql('Hackticv Raya');
           done();
         });
       });
@@ -93,7 +93,7 @@ describe('Articles', () => {
 
   describe('/DELETE/:id article', () => {
     it('it should DELETE an article given the id', (done) => {
-      let article = new Article({ title: "Mas Jainal Paling Tamvan se-Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
+      let article = new Article({ title: "Hackticv", content: "Saracen Hoax", author: 'Hary NP'});
       article.save((err, article) => {
         chai.request(app)
         .delete('/api/articles/' + article.id)
